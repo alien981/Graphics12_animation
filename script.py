@@ -18,8 +18,31 @@ from draw import *
   to some default value, and print out a message
   with the name being used.
   ==================== """
+
 def first_pass( commands ):
-    pass
+    numframes = false
+    basen = false
+    v = false
+    for command in commands:
+        print command
+        c = command['op']
+        args = command['args']
+
+        if c == frames:	
+            num_frames = args[0]
+            numframes = true
+        if c == basename:
+            basename = args[0]
+            basen = true
+        if c == vary:
+            v = true
+                
+    if (vary and numframes==false):
+        print "vary but no frames"
+        return
+    elif numframes and basen==false:
+        basename = "faraday.png"
+        print "faraday.png"
 
 """======== second_pass( commands ) ==========
 
@@ -39,7 +62,15 @@ def first_pass( commands ):
   appropirate value.
   ===================="""
 def second_pass( commands, num_frames ):
-    pass
+    for command in commands:
+        print command
+        c = command['op']
+        args = command['args']
+
+        if c == vary:
+            q = 0
+            while q < args[2]-args[1]:
+                knobs[q + args[1]][args[0]] = args[2] + (args[4]-args[3])/(args[2]-args[1]) * q
 
 
 def run(filename):
